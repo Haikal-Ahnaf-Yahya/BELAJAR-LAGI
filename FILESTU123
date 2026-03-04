@@ -12,20 +12,6 @@ JADWAL = {
     "2026-02-01": "Barcelona vs Athletic Bilbao (LaLiga)",
     "2026-02-08": "Sevilla vs Barcelona (LaLiga)",
     "2026-02-15": "Barcelona vs Getafe (LaLiga)",
-    "2026-02-22": "Granada vs Barcelona (LaLiga)",
-    "2026-03-01": "Barcelona vs Real Betis (LaLiga)",
-    "2026-03-08": "Barcelona vs Atletico Madrid (LaLiga)",
-    "2026-03-15": "Cadiz vs Barcelona (LaLiga)",
-    "2026-03-22": "Barcelona vs Girona (LaLiga)",
-    "2026-03-29": "Barcelona vs Real Sociedad (LaLiga)",
-    "2026-04-05": "Valencia vs Barcelona (LaLiga)",
-    "2026-04-12": "Barcelona vs Levante (LaLiga)",
-    "2026-04-19": "Mallorca vs Barcelona (LaLiga)",
-    "2026-04-26": "Barcelona vs Real Madrid (LaLiga)",
-    "2026-05-03": "Elche vs Barcelona (LaLiga)",
-    "2026-05-10": "Barcelona vs Villarreal (LaLiga)",
-    "2026-05-17": "Osasuna vs Barcelona (LaLiga)",
-    "2026-05-24": "Barcelona vs Espanyol (LaLiga)"
 }
 
 def pertandingan_terdekat(mulai_tanggal):

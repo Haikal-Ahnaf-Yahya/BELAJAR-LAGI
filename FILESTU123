@@ -1,0 +1,89 @@
+from datetime import datetime, timedelta
+
+# Jadwal Barcelona musim 2025/26 (cuplikan Transfermarkt)
+JADWAL = {
+    "2025-12-14": "Barcelona vs Osasuna (LaLiga)",
+    "2025-12-17": "CD Guadalajara vs Barcelona (Copa del Rey)",
+    "2025-12-21": "Villarreal vs Barcelona (LaLiga)",
+    "2026-01-04": "Espanyol vs Barcelona (LaLiga)",
+    "2026-01-18": "Real Sociedad vs Barcelona (LaLiga)",
+    "2026-01-22": "Slavia Prague vs Barcelona (UCL)",
+    "2026-01-29": "Barcelona vs Copenhagen (UCL)",
+    "2026-02-01": "Barcelona vs Athletic Bilbao (LaLiga)",
+    "2026-02-08": "Sevilla vs Barcelona (LaLiga)",
+    "2026-02-15": "Barcelona vs Getafe (LaLiga)",
+    "2026-02-22": "Granada vs Barcelona (LaLiga)",
+    "2026-03-01": "Barcelona vs Real Betis (LaLiga)",
+    "2026-03-08": "Barcelona vs Atletico Madrid (LaLiga)",
+    "2026-03-15": "Cadiz vs Barcelona (LaLiga)",
+    "2026-03-22": "Barcelona vs Girona (LaLiga)",
+    "2026-03-29": "Barcelona vs Real Sociedad (LaLiga)",
+    "2026-04-05": "Valencia vs Barcelona (LaLiga)",
+    "2026-04-12": "Barcelona vs Levante (LaLiga)",
+    "2026-04-19": "Mallorca vs Barcelona (LaLiga)",
+    "2026-04-26": "Barcelona vs Real Madrid (LaLiga)",
+    "2026-05-03": "Elche vs Barcelona (LaLiga)",
+    "2026-05-10": "Barcelona vs Villarreal (LaLiga)",
+    "2026-05-17": "Osasuna vs Barcelona (LaLiga)",
+    "2026-05-24": "Barcelona vs Espanyol (LaLiga)"
+}
+
+def pertandingan_terdekat(mulai_tanggal):
+    jadwal_sorted = sorted(JADWAL.keys())
+    for t in jadwal_sorted:
+        if t >= mulai_tanggal:
+            return t, JADWAL[t]
+    return None, None
+
+def cek_jadwal(input_user):
+    today = datetime.now().date()
+
+    # Mode tanggal relatif
+    if input_user.lower() == "hari ini":
+        tanggal = today
+    elif input_user.lower() == "besok":
+        tanggal = today + timedelta(days=1)
+    elif input_user.lower() == "lusa":
+        tanggal = today + timedelta(days=2)
+    elif input_user.lower() == "pertandingan terdekat":
+        tanggal_str = today.strftime("%Y-%m-%d")
+        t, laga = pertandingan_terdekat(tanggal_str)
+        if t:
+            print(f"⚽ Pertandingan terdekat: {t} → {laga}")
+        else:
+            print("⚠️ Tidak ada jadwal berikutnya (musim sudah selesai).")
+        return
+    else:
+        # Mode input tanggal atau nama pertandingan
+        try:
+            tanggal = datetime.strptime(input_user, "%Y-%m-%d").date()
+            tanggal_str = tanggal.strftime("%Y-%m-%d")
+            if tanggal_str in JADWAL:
+                print(f"📅 {tanggal_str} → {JADWAL[tanggal_str]}")
+            else:
+                print(f"📅 {tanggal_str} → Tidak ada pertandingan Barcelona.")
+            return
+        except ValueError:
+            # Mode input nama pertandingan
+            for t, laga in JADWAL.items():
+                if input_user.lower() in laga.lower():
+                    print(f"⚽ {laga} → 📅 {t}")
+                    return
+            print("⚠️ Pertandingan tidak ditemukan dalam jadwal.")
+            return
+
+    # Jika mode hari ini/besok/lusa
+    tanggal_str = tanggal.strftime("%Y-%m-%d")
+    if tanggal_str in JADWAL:
+        print(f"📅 {tanggal_str} → {JADWAL[tanggal_str]}")
+    else:
+        print(f"📅 {tanggal_str} → Tidak ada pertandingan Barcelona.")
+
+# Program utama dengan loop
+if __name__ == "__main__":
+    while True:
+        user_input = input("\nMasukkan 'hari ini', 'besok', 'lusa', 'pertandingan terdekat', tanggal (YYYY-MM-DD), nama pertandingan, atau 'keluar': ")
+        if user_input.lower() == "keluar":
+            print("👋 Program selesai. Terima kasih!")
+            break
+        cek_jadwal(user_input)
